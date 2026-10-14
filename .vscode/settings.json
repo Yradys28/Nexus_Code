@@ -1,0 +1,16 @@
+{
+	// Tailwind CSS v4: la configuración del tema vive en el CSS (no hay tailwind.config.js)
+	// Apuntamos la extensión Tailwind IntelliSense a ese archivo para que resuelva
+	// las clases personalizadas (shadow-glow, font-display, etc.) y deje de marcar problemas.
+	"tailwindCSS.experimental.configFile": "./src/styles/global.css",
+
+	// Excluye artefactos de build del análisis del editor
+	"files.exclude": {
+		"**/.astro": true,
+		"**/dist": true
+	},
+	"search.exclude": {
+		"**/dist": true,
+		"**/node_modules": true
+	}
+}

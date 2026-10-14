@@ -1,0 +1,121 @@
+---
+// Navegación principal de la SPA (smooth scroll hacia las secciones)
+const navItems = [
+	{ label: 'Inicio', href: '#inicio' },
+	{ label: 'Servicios', href: '#servicios' },
+	{ label: 'Proyectos', href: '#proyectos' },
+	{ label: 'Sobre Nosotros', href: '#sobre-nosotros' },
+	{ label: 'Contacto', href: '#contacto' },
+];
+---
+
+<header
+	class="fixed top-0 left-0 z-50 w-full border-b border-white/5 bg-[#010715]/80 backdrop-blur-md transition-all duration-300"
+>
+	<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-18 lg:px-8">
+		<!-- Logo placeholder -->
+		<a
+			href="#inicio"
+			class="group flex items-center gap-2 text-sm font-bold tracking-widest transition-all duration-300"
+		>
+			<span
+				class="inline-block size-2.5 rounded-full bg-gradient-to-r from-[#372eab] to-[#8055da] shadow-[0_0_10px_rgba(128,85,218,0.8)] transition-all duration-300 group-hover:shadow-[0_0_16px_rgba(128,85,218,1)]"
+			></span>
+			<span class="font-display text-white">[ LOGO NEXUS CODE ]</span>
+		</a>
+
+		<!-- Navegación desktop -->
+		<nav class="hidden items-center gap-1 md:flex" aria-label="Navegación principal">
+			{
+				navItems.map((item) => (
+					<a
+						href={item.href}
+						class="rounded-lg px-3 py-2 text-sm text-white/70 transition-all duration-300 hover:bg-white/5 hover:text-white hover:shadow-[inset_0_-2px_0_0_#8055da]"
+					>
+						{item.label}
+					</a>
+				))
+			}
+			<a
+				href="#contacto"
+				class="ml-3 rounded-lg bg-gradient-to-r from-[#372eab] to-[#8055da] px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:shadow-glow hover:brightness-110"
+			>
+				 CONTRATAME 
+			</a>
+		</nav>
+
+		<!-- Botón menú móvil -->
+		<button
+			id="menu-toggle"
+			type="button"
+			class="inline-flex size-10 items-center justify-center rounded-lg border border-white/10 text-white transition-all duration-300 hover:border-[#8055da]/60 hover:bg-white/5 md:hidden"
+			aria-label="Abrir menú"
+			aria-expanded="false"
+			aria-controls="mobile-menu"
+		>
+			<svg id="icon-open" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+			</svg>
+			<svg id="icon-close" class="hidden size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+			</svg>
+		</button>
+	</div>
+
+	<!-- Menú móvil -->
+	<nav
+		id="mobile-menu"
+		class="hidden border-t border-white/5 bg-[#010715]/95 backdrop-blur-md md:hidden"
+		aria-label="Navegación móvil"
+	>
+		<div class="space-y-1 px-4 py-4 sm:px-6">
+			{
+				navItems.map((item) => (
+					<a
+						href={item.href}
+						class="mobile-link block rounded-lg px-3 py-3 text-sm text-white/70 transition-all duration-300 hover:bg-white/5 hover:text-white"
+					>
+						{item.label}
+					</a>
+				))
+			}
+			<a
+				href="#contacto"
+				class="mobile-link mt-2 block rounded-lg bg-gradient-to-r from-[#372eab] to-[#8055da] px-3 py-3 text-center text-sm font-semibold text-white transition-all duration-300 hover:brightness-110"
+			>
+				[ CTA HEADER ]
+			</a>
+		</div>
+	</nav>
+</header>
+
+<script>
+	const toggle = document.getElementById('menu-toggle');
+	const menu = document.getElementById('mobile-menu');
+	const iconOpen = document.getElementById('icon-open');
+	const iconClose = document.getElementById('icon-close');
+
+	function closeMenu() {
+		menu?.classList.add('hidden');
+		iconOpen?.classList.remove('hidden');
+		iconClose?.classList.add('hidden');
+		toggle?.setAttribute('aria-expanded', 'false');
+	}
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = !menu?.classList.contains('hidden');
+		if (isOpen) {
+			closeMenu();
+		} else {
+			menu?.classList.remove('hidden');
+			iconOpen?.classList.add('hidden');
+			iconClose?.classList.remove('hidden');
+			toggle?.setAttribute('aria-expanded', 'true');
+		}
+	});
+
+	// Cerrar menú al navegar a una sección (móvil)
+	document.querySelectorAll('.mobile-link').forEach((link) => {
+		link.addEventListener('click', closeMenu);
+	});
+</script>
